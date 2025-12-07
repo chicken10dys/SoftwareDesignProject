@@ -14,7 +14,7 @@ public class Main {
    public static void main(String[] args) {
 
     Scanner input = new Scanner(System.in);
-        BlackJackGame game = new BlackJackGame("Casino Blackjack");
+        BlackJackGame game = new BlackJackGame("House Group Blackjack");
 
         System.out.println("Welcome to " + game.getName());
 
