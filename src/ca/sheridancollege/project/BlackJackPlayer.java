@@ -10,64 +10,40 @@ package ca.sheridancollege.project;
  */
 public class BlackJackPlayer extends Player{
   private Hand hand;
-  private int status; // 0=Playing, 1=Bust, 2=Stand
+  private Status status; 
   
     /**
      * A constructor that allows you to set the a card's rank and suit
      *
      */
-  public BlackJackPlayer(String name) {
+public BlackJackPlayer(String name) {
         super(name);
-        hand = new Hand();
-        this.status =0;
-    }
-  public Hand getHand() { 
-        return hand; 
+        this.hand = new Hand();
+        this.status = Status.PLAYING;
     }
 
-    public void setHand(Hand hand) { 
-        this.hand = hand; 
-    }
+    public Hand getHand() { return hand; }
+    
+    public Status getStatus() { return status; }
+    
+    public void setStatus(Status status) { this.status = status; }
 
-    public int getStatus() { 
-        return status; 
-    }
-
-    public void setStatus(int status) { 
-        this.status = status; 
-    }
     /**
-     * The UML defines this as hit(): void. 
-     * However, to make the code work, we must pass the deck 
-     * so we can actually draw a card.
+     * Logic to add a card and check for bust immediately.
+     * This keeps the internal state consistent.
      */
-    public void hit(Deck deck) {
-        System.out.println(getName() + " hits.");
-        PlayingCard c = deck.deal();
+    public void addCard(PlayingCard c) {
         hand.addCard(c);
-        
-        // Check for bust
         if (hand.getScore() > 21) {
-            this.status = 1; // 1 represents Bust
+            this.status = Status.BUST;
         }
-    }
-
-    public void stand() {
-        System.out.println(getName() + " stands.");
-        this.status = 2; // 2 represents Stand
-    }
-
-    public void withdraw() {
-        System.out.println(getName() + " withdraws from the game.");
-        // Logic to remove player from game would happen in Game class
-        this.status = -1; // -1 represents Quit
     }
 
     @Override
     public void play() {
         // This is the abstract method from the Parent class.
         // We can use it to display the player's current state.
-        System.out.println(getName() + " is playing. Current Score: " + hand.getScore());
+        System.out.println(getName() + " current Hand: " + hand + " (Score: " + hand.getScore() + ")");
     }
     
     

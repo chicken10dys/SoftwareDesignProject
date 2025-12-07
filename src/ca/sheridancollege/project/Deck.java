@@ -16,18 +16,19 @@ public class Deck extends GroupOfCards{
      */
    public Deck(){
        super(52); //Initialize the parent class with a size of 52
-        for (CardSuits s : CardSuits.values()) {
+  for (CardSuits s : CardSuits.values()) {
             for (CardRank r : CardRank.values()) {
                 getCards().add(new PlayingCard(r, s));
             }
         }
-   }
-   /**
-     * Removes and returns the top card from the deck.
-     * * @return The PlayingCard at index 0, or null if the deck is empty.
-     */
-   public PlayingCard deal() {
-        if(getCards().isEmpty()) return null;
-        return (PlayingCard) getCards().remove(0);
+        shuffle(); // Shuffle immediately upon creation
     }
+   public PlayingCard deal() {
+        if (getCards().isEmpty()) {
+            return null; // Or throw exception
+    
+       }
+        // Casting is necessary because GroupOfCards holds generic 'Card'
+        return (PlayingCard) getCards().remove(0);
+   }
 }

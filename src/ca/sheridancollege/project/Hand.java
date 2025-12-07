@@ -23,17 +23,35 @@ public class Hand {
      * Aces are worth 1 or 11, whichever benefits the player most.
      * * @return The total integer score of the hand.
      */
-    public int getScore() {
+    
+    public ArrayList<PlayingCard> getCards() {
+        return cards;
+    }
+
+public int getScore() {
         int score = 0;
-        int aces = 0;
+        int aceCount = 0;
+
         for (PlayingCard c : cards) {
-            switch (c.getRank()) {
-                case ACE: aces++; break;
-                case JACK: case QUEEN: case KING: score += 10; break;
-                default: score += c.getRank().ordinal() + 1; break;
+            CardRank rank = c.getRank();
+            if (rank == CardRank.ACE) {
+                aceCount++;
+                // We assume Ace is 11 initially
+                score += 11; 
+            } else if (rank == CardRank.JACK || rank == CardRank.QUEEN || rank == CardRank.KING) {
+                score += 10;
+            } else {
+                // In your enum, ACE is 0, TWO is 1. So TWO's value is ordinal + 1 = 2.
+                score += rank.ordinal() + 1;
             }
         }
-        // Logic for aces (1 or 11) would go here
+
+        // If we busted, downgrade Aces from 11 to 1 until we are safe
+        while (score > 21 && aceCount > 0) {
+            score -= 10;
+            aceCount--;
+        }
+
         return score;
     }
        /**
