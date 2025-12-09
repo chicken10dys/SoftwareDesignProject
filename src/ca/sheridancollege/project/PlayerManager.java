@@ -11,27 +11,34 @@ import java.util.List;
  *
  * @author doria
  */
-public class PlayerManager {
-    private List<Player> players;
+    public class PlayerManager {
+    private static List<Player> players;
+    private static PlayerManager instance;
 
-    public PlayerManager() {
+    private PlayerManager() {
         this.players = new ArrayList<>();
     }
+    public static PlayerManager getInstance() {
+        if (instance == null) {
+            instance = new PlayerManager();
+        }
+            return instance;
+    }
 
-    public List<Player> getPlayers() {
+    public static List<Player> getPlayers() {
         return players;
     }
     //adding new players to the list
-    public void addPlayer(Player player) {
+    public static void addPlayer(Player player) {
         players.add(player);
     }
 
-    public void removePlayer(String playerName) {
+    public static void removePlayer(String playerName) {
         // Remove player by name logic
         players.removeIf(p -> p.getName().equalsIgnoreCase(playerName));
     }
     
-    public Player getPlayer(int index) {
+    public static Player getPlayer(int index) {
         if(index >= 0 && index < players.size()){
             return players.get(index);
         }

@@ -76,6 +76,7 @@ private Deck deck;
             player.printState(); // Displays current score
             
             // Validate Input
+
             String[] choices = {"Hit", "Stand"};
             String input = InputValidation.readString(choices, "Please type 'Hit' or 'Stand'");
             
@@ -83,6 +84,12 @@ private Deck deck;
             
             System.out.println(playResultMessage);
         }
+        if (player.getStatus() == Status.QUIT) {
+            // Uses the removePlayer method shown in your UML
+            PlayerManager.getInstance().removePlayer(player.getName());
+        }
+
+
     }
 
     private void processDealerTurn() {
@@ -93,6 +100,8 @@ private Deck deck;
         
         System.out.println(playResultMessage);
     }
+
+
 
     @Override
     public void declareWinner() {
