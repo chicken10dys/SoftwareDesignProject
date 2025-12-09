@@ -9,7 +9,7 @@ package ca.sheridancollege.project;
  * @author doria
  */
 public class BlackJackPlayer extends Player{
-  private Hand hand;
+  protected Hand hand;
   private Status status; 
   
     /**
@@ -39,12 +39,32 @@ public BlackJackPlayer(String name) {
         }
     }
 
-    @Override
-    public void play() {
+    public void printState() {
         // This is the abstract method from the Parent class.
         // We can use it to display the player's current state.
         System.out.println(getName() + " current Hand: " + hand + " (Score: " + hand.getScore() + ")");
     }
     
-    
+    @Override
+    public String play(String action) {
+        String actionResultMessage;
+        
+        if (action.equalsIgnoreCase("Hit")) {
+            PlayingCard c = Deck.getDeck().deal();
+            this.addCard(c); // This method inside Player checks for BUST automatically
+            
+            actionResultMessage = this.getName() + " draws: " + c;
+            if (this.getStatus() == Status.BUST)
+                actionResultMessage += "\nBUST! Score: " + this.getHand().getScore();
+             
+        } else if (action.equalsIgnoreCase("Stand"))  {
+            this.setStatus(Status.STAND);
+            actionResultMessage = this.getName() + " Stands.";
+        } else {
+            actionResultMessage = "Error!!! Unexpected action parameter value" +
+                    "in BlackJackPlayer named " + this.getName();
+        }
+        
+        return actionResultMessage;
+    }
 }

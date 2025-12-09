@@ -19,7 +19,7 @@ private Deck deck;
 
     public BlackJackGame(String name) {
         super(name);
-        deck = new Deck();
+        deck = Deck.getDeck();
         dealer = new Dealer("House");
         scanner = new Scanner(System.in);
         // 'players' is inherited from Game. We initialize it here if null, 
@@ -72,43 +72,25 @@ private Deck deck;
         System.out.println("\n--- " + player.getName() + "'s Turn ---");
         
         while (player.getStatus() == Status.PLAYING) {
-            player.play(); // Displays current score
+            player.printState(); // Displays current score
             
             // Validate Input
             String[] choices = {"Hit", "Stand"};
             String input = InputValidation.readString(choices, "Please type 'Hit' or 'Stand'");
-
-            if (input.equalsIgnoreCase("Hit")) {
-                PlayingCard c = deck.deal();
-                System.out.println(player.getName() + " draws: " + c);
-                player.addCard(c); // This method inside Player checks for BUST automatically
-                
-                if (player.getStatus() == Status.BUST) {
-                    System.out.println("BUST! Score: " + player.getHand().getScore());
-                }
-            } else {
-                player.setStatus(Status.STAND);
-                System.out.println(player.getName() + " Stands.");
-            }
+            
+            String playResultMessage = player.play(input);
+            
+            System.out.print(playResultMessage);
         }
     }
 
     private void processDealerTurn() {
         System.out.println("\n--- Dealer's Turn ---");
-        dealer.play(); // Show initial hand
+        dealer.printState(); // Show initial hand
         
-        while (dealer.wantsToHit()) {
-            PlayingCard c = deck.deal();
-            System.out.println("Dealer hits and gets: " + c);
-            dealer.addCard(c);
-        }
-
-        if (dealer.getStatus() == Status.BUST) {
-             System.out.println("Dealer BUSTS with " + dealer.getHand().getScore());
-        } else {
-             dealer.setStatus(Status.STAND);
-             System.out.println("Dealer Stands with " + dealer.getHand().getScore());
-        }
+        String playResultMessage =  dealer.dealerAIPlay();
+        
+        System.out.print(playResultMessage);
     }
 
     @Override
