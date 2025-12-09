@@ -86,11 +86,15 @@ private Deck deck;
                 if (player.getStatus() == Status.BUST) {
                     System.out.println("BUST! Score: " + player.getHand().getScore());
                 }
-            } else {
+            } else if (input.equalsIgnoreCase("stand")) {
                 player.setStatus(Status.STAND);
                 System.out.println(player.getName() + " Stands.");
+            } else if (input.equalsIgnoreCase("withdraw")) {
+                player.withdraw();
             }
         }
+
+
     }
 
     private void processDealerTurn() {
@@ -110,6 +114,8 @@ private Deck deck;
              System.out.println("Dealer Stands with " + dealer.getHand().getScore());
         }
     }
+
+
 
     @Override
     public void declareWinner() {

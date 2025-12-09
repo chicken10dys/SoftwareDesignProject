@@ -45,6 +45,12 @@ public BlackJackPlayer(String name) {
         // We can use it to display the player's current state.
         System.out.println(getName() + " current Hand: " + hand + " (Score: " + hand.getScore() + ")");
     }
-    
+
+
+    public void withdraw() {
+        // Sets the status to the QUIT enum value
+        setStatus(Status.QUIT);
+        System.out.println(getName() + " has withdrawn from the game.");
+    }
     
 }
