@@ -75,8 +75,8 @@ private Deck deck;
             player.play(); // Displays current score
             
             // Validate Input
-            String[] choices = {"Hit", "Stand"};
-            String input = InputValidation.readString(choices, "Please type 'Hit' or 'Stand'");
+            String[] choices = {"Hit", "Stand", "Withdraw"};
+            String input = InputValidation.readString(choices, "Please type 'Hit', 'Stand', or 'Withdraw'");
 
             if (input.equalsIgnoreCase("Hit")) {
                 PlayingCard c = deck.deal();
@@ -92,6 +92,10 @@ private Deck deck;
             } else if (input.equalsIgnoreCase("withdraw")) {
                 player.withdraw();
             }
+        }
+        if (player.getStatus() == Status.QUIT) {
+            // Uses the removePlayer method shown in your UML
+            PlayerManager.getInstance().removePlayer(player.getName());
         }
 
 
