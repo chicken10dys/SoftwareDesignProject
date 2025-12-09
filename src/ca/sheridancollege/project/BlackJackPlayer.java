@@ -55,7 +55,7 @@ public BlackJackPlayer(String name) {
             
             actionResultMessage = this.getName() + " draws: " + c;
             if (this.getStatus() == Status.BUST)
-                actionResultMessage += "\nBUST! Score: " + this.getHand().getScore();
+                actionResultMessage += System.lineSeparator() + "BUST! Score: " + this.getHand().getScore();
              
         } else if (action.equalsIgnoreCase("Stand"))  {
             this.setStatus(Status.STAND);
