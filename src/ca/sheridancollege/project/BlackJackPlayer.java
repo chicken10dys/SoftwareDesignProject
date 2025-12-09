@@ -9,7 +9,7 @@ package ca.sheridancollege.project;
  * @author doria
  */
 public class BlackJackPlayer extends Player{
-  private Hand hand;
+  protected Hand hand;
   private Status status; 
   
     /**
@@ -45,7 +45,6 @@ public BlackJackPlayer(String name) {
         System.out.println(getName() + " current Hand: " + hand + " (Score: " + hand.getScore() + ")");
     }
     
-    // TODO override public void play()
     @Override
     public String play(String action) {
         String actionResultMessage;

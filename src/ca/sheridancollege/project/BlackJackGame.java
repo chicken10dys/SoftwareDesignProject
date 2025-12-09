@@ -88,18 +88,9 @@ private Deck deck;
         System.out.println("\n--- Dealer's Turn ---");
         dealer.printState(); // Show initial hand
         
-        while (dealer.wantsToHit()) {
-            PlayingCard c = deck.deal();
-            System.out.println("Dealer hits and gets: " + c);
-            dealer.addCard(c);
-        }
-
-        if (dealer.getStatus() == Status.BUST) {
-             System.out.println("Dealer BUSTS with " + dealer.getHand().getScore());
-        } else {
-             dealer.setStatus(Status.STAND);
-             System.out.println("Dealer Stands with " + dealer.getHand().getScore());
-        }
+        String playResultMessage =  dealer.dealerAIPlay();
+        
+        System.out.print(playResultMessage);
     }
 
     @Override

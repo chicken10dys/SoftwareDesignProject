@@ -43,6 +43,9 @@ public abstract class Player {
     /**
      * The method to be overridden when you subclass the Player class with your specific type of Player and filled in
      * with logic to play your game.
+     * 
+     * @param action what will the player do? (hit or stand)
+     * @return Post-action message
      */
     public abstract String play(String action);
 

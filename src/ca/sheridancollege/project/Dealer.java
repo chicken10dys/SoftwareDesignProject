@@ -14,16 +14,25 @@ public Dealer(String name) {
         super(name);
     }
 
-    /**
-     * The dealer has a strict rule: Hit if score < 17.
-     * The Game class will query this to decide if the dealer gets a card.
-     */
-    public boolean wantsToHit() {
-        return getHand().getScore() < 17;
-    }
 
     @Override
     public void printState() {
-        System.out.println("Dealer shows hand: " + getHand());
+        System.out.println("Dealer shows hand: " + getHand() + " (Score: " + hand.getScore() + ")");
+    }
+    
+
+    public String dealerAIPlay() {
+     /**
+     * The dealer has a strict rule: Hit if score < 17.
+     * The Game class will query this to decide if the dealer gets a card.
+     */
+        if (getHand().getScore() < 17) {
+            return super.play("hit");
+        }
+        else
+            return super.play("stand");
+        
+  
+        
     }
 }
