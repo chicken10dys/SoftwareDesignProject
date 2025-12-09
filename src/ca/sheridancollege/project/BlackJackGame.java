@@ -115,6 +115,7 @@ private Deck deck;
                 BlackJackPlayer bjp = (BlackJackPlayer) p;
                 int playerScore = bjp.getHand().getScore();
                 boolean playerBusted = (bjp.getStatus() == Status.BUST);
+                boolean playerWithdrew = (bjp.getStatus() == Status.QUIT);
 
                 System.out.print(bjp.getName() + ": ");
 
@@ -126,6 +127,8 @@ private Deck deck;
                     System.out.println("WIN! (" + playerScore + " vs " + dealerScore + ")");
                 } else if (playerScore == dealerScore) {
                     System.out.println("PUSH (Tie)");
+                } else if (playerWithdrew) {
+                    System.out.println("Player Withdrew")
                 } else {
                     System.out.println("Loss (" + playerScore + " vs " + dealerScore + ")");
                 }          
