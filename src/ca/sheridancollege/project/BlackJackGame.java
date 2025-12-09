@@ -20,7 +20,7 @@ private Deck deck;
     public BlackJackGame(String name) {
         super(name);
         deck = Deck.getDeck();
-        dealer = new Dealer("House");
+        dealer = Dealer.getDealer();
         scanner = new Scanner(System.in);
         // 'players' is inherited from Game. We initialize it here if null, 
         // though Game constructor usually does it.
@@ -58,6 +58,7 @@ private Deck deck;
         // Deal 2 cards to everyone
         for (Player p : getPlayers()) {
             if (p instanceof BlackJackPlayer) {
+                System.out.println(p.getName());
                 BlackJackPlayer bjp = (BlackJackPlayer) p;
                 bjp.addCard(deck.deal());
                 bjp.addCard(deck.deal());
@@ -80,7 +81,7 @@ private Deck deck;
             
             String playResultMessage = player.play(input);
             
-            System.out.print(playResultMessage);
+            System.out.println(playResultMessage);
         }
     }
 
@@ -90,7 +91,7 @@ private Deck deck;
         
         String playResultMessage =  dealer.dealerAIPlay();
         
-        System.out.print(playResultMessage);
+        System.out.println(playResultMessage);
     }
 
     @Override
@@ -98,7 +99,7 @@ private Deck deck;
         System.out.println("\n--- FINAL RESULTS ---");
         int dealerScore = dealer.getHand().getScore();
         boolean dealerBusted = (dealer.getStatus() == Status.BUST);
-
+        
         for (Player p : getPlayers()) {
             if (p instanceof BlackJackPlayer) {
                 BlackJackPlayer bjp = (BlackJackPlayer) p;
@@ -117,8 +118,8 @@ private Deck deck;
                     System.out.println("PUSH (Tie)");
                 } else {
                     System.out.println("Loss (" + playerScore + " vs " + dealerScore + ")");
-                }
+                }          
             }
-        }
+        }  
     }
 }

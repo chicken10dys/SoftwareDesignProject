@@ -9,30 +9,35 @@ package ca.sheridancollege.project;
  * @author doria
  */
 public class Dealer extends BlackJackPlayer {
+    // dealer varibale (signleton)
+    private static Dealer onlyDealer;
     
-public Dealer(String name) {
+    private Dealer(String name) {
         super(name);
     }
-
+    
+    // dealer get (signleton)
+    public static Dealer getDealer() {
+        if (onlyDealer == null)
+            onlyDealer = new Dealer("Dealer");
+        return onlyDealer;
+    }
 
     @Override
     public void printState() {
         System.out.println("Dealer shows hand: " + getHand() + " (Score: " + hand.getScore() + ")");
     }
-    
 
     public String dealerAIPlay() {
-     /**
-     * The dealer has a strict rule: Hit if score < 17.
-     * The Game class will query this to decide if the dealer gets a card.
-     */
+        /**
+         * The dealer has a strict rule: Hit if score < 17. The Game class will
+         * query this to decide if the dealer gets a card.
+         */
         if (getHand().getScore() < 17) {
             return super.play("hit");
-        }
-        else
+        } else {
             return super.play("stand");
-        
-  
-        
+        }
+
     }
 }
