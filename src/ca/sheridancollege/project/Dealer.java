@@ -23,7 +23,7 @@ public Dealer(String name) {
     }
 
     @Override
-    public void play() {
+    public void printState() {
         System.out.println("Dealer shows hand: " + getHand());
     }
 }
