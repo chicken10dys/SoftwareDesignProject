@@ -28,6 +28,9 @@ import java.util.List;
     public static List<Player> getPlayers() {
         return players;
     }
+    public void flush() {
+        this.players = new ArrayList<>();
+    }
     //adding new players to the list
     public static void addPlayer(Player player) {
         players.add(player);

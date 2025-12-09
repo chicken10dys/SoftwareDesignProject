@@ -27,6 +27,15 @@ public class Deck extends GroupOfCards {
         shuffle(); // Shuffle immediately upon creation
     }
     
+    public void reset() {
+                for (CardSuits s : CardSuits.values()) {
+            for (CardRank r : CardRank.values()) {
+                getCards().add(new PlayingCard(r, s));
+            }
+        }
+        shuffle(); // Shuffle immediately upon creation
+    }
+    
     // singleton method that returns the one deck instance
     public static Deck getDeck() {
         if (onlyDeck == null)
