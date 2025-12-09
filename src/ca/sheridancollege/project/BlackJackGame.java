@@ -128,7 +128,7 @@ private Deck deck;
                 } else if (playerScore == dealerScore) {
                     System.out.println("PUSH (Tie)");
                 } else if (playerWithdrew) {
-                    System.out.println("Player Withdrew")
+                    System.out.println("Player Withdrew");
                 } else {
                     System.out.println("Loss (" + playerScore + " vs " + dealerScore + ")");
                 }          
