@@ -62,7 +62,7 @@ public BlackJackPlayer(String name) {
             actionResultMessage = this.getName() + " Stands.";
         } else if (action.equalsIgnoreCase("Withdraw")){
           setStatus(Status.QUIT);
-          actionResultMessage = this.getName() + " has withdrawn from the game.")
+          actionResultMessage = this.getName() + " has withdrawn from the game.";
         } else {
             actionResultMessage = "Error!!! Unexpected action parameter value" +
                     "in BlackJackPlayer named " + this.getName();

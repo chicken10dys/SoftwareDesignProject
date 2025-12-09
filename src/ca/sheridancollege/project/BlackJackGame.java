@@ -77,8 +77,9 @@ private Deck deck;
             
             // Validate Input
 
-            String[] choices = {"Hit", "Stand"};
-            String input = InputValidation.readString(choices, "Please type 'Hit' or 'Stand'");
+            String[] choices = {"Hit", "Stand", "Withdraw"};
+            System.out.print("Choice (Hit/Stand/Withdraw) ");
+            String input = InputValidation.readString(choices, "Please type 'Hit', 'Stand', or 'Withdraw'");
             
             String playResultMessage = player.play(input);
             
