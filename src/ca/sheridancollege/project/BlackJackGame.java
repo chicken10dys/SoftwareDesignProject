@@ -19,8 +19,8 @@ private Deck deck;
 
     public BlackJackGame(String name) {
         super(name);
-        deck = new Deck();
-        dealer = new Dealer("House");
+        deck = Deck.getDeck();
+        dealer = Dealer.getDealer();
         scanner = new Scanner(System.in);
         // 'players' is inherited from Game. We initialize it here if null, 
         // though Game constructor usually does it.
@@ -58,6 +58,7 @@ private Deck deck;
         // Deal 2 cards to everyone
         for (Player p : getPlayers()) {
             if (p instanceof BlackJackPlayer) {
+                System.out.println(p.getName());
                 BlackJackPlayer bjp = (BlackJackPlayer) p;
                 bjp.addCard(deck.deal());
                 bjp.addCard(deck.deal());
@@ -72,26 +73,16 @@ private Deck deck;
         System.out.println("\n--- " + player.getName() + "'s Turn ---");
         
         while (player.getStatus() == Status.PLAYING) {
-            player.play(); // Displays current score
+            player.printState(); // Displays current score
             
             // Validate Input
-            String[] choices = {"Hit", "Stand", "Withdraw"};
-            String input = InputValidation.readString(choices, "Please type 'Hit', 'Stand', or 'Withdraw'");
 
-            if (input.equalsIgnoreCase("Hit")) {
-                PlayingCard c = deck.deal();
-                System.out.println(player.getName() + " draws: " + c);
-                player.addCard(c); // This method inside Player checks for BUST automatically
-                
-                if (player.getStatus() == Status.BUST) {
-                    System.out.println("BUST! Score: " + player.getHand().getScore());
-                }
-            } else if (input.equalsIgnoreCase("stand")) {
-                player.setStatus(Status.STAND);
-                System.out.println(player.getName() + " Stands.");
-            } else if (input.equalsIgnoreCase("withdraw")) {
-                player.withdraw();
-            }
+            String[] choices = {"Hit", "Stand"};
+            String input = InputValidation.readString(choices, "Please type 'Hit' or 'Stand'");
+            
+            String playResultMessage = player.play(input);
+            
+            System.out.println(playResultMessage);
         }
         if (player.getStatus() == Status.QUIT) {
             // Uses the removePlayer method shown in your UML
@@ -103,20 +94,11 @@ private Deck deck;
 
     private void processDealerTurn() {
         System.out.println("\n--- Dealer's Turn ---");
-        dealer.play(); // Show initial hand
+        dealer.printState(); // Show initial hand
         
-        while (dealer.wantsToHit()) {
-            PlayingCard c = deck.deal();
-            System.out.println("Dealer hits and gets: " + c);
-            dealer.addCard(c);
-        }
-
-        if (dealer.getStatus() == Status.BUST) {
-             System.out.println("Dealer BUSTS with " + dealer.getHand().getScore());
-        } else {
-             dealer.setStatus(Status.STAND);
-             System.out.println("Dealer Stands with " + dealer.getHand().getScore());
-        }
+        String playResultMessage =  dealer.dealerAIPlay();
+        
+        System.out.println(playResultMessage);
     }
 
 
@@ -126,7 +108,7 @@ private Deck deck;
         System.out.println("\n--- FINAL RESULTS ---");
         int dealerScore = dealer.getHand().getScore();
         boolean dealerBusted = (dealer.getStatus() == Status.BUST);
-
+        
         for (Player p : getPlayers()) {
             if (p instanceof BlackJackPlayer) {
                 BlackJackPlayer bjp = (BlackJackPlayer) p;
@@ -145,8 +127,8 @@ private Deck deck;
                     System.out.println("PUSH (Tie)");
                 } else {
                     System.out.println("Loss (" + playerScore + " vs " + dealerScore + ")");
-                }
+                }          
             }
-        }
+        }  
     }
 }
